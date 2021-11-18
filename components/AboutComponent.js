@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { Text, ScrollView } from "react-native";
-import { ListItem } from "react-native-elements";
+import { Text, ScrollView, View } from "react-native";
+import { Card, ListItem } from "react-native-elements";
+import { FlatList } from "react-native-gesture-handler";
 import { PARTNERS } from "../shared/partners";
 import MissionComponent from "./MissionComponent";
 
@@ -16,6 +17,7 @@ class About extends Component {
     };
     render() {
         function renderPartners({item}){
+            return (
             <ListItem
                 title={item.name}
                 subtitle={item.description}
@@ -23,10 +25,19 @@ class About extends Component {
                 )}}>
 
             </ListItem>
+            )
         }
         return (
         <ScrollView>
             <MissionComponent />
+            <View>
+            <Card title="Community Partners">
+                <FlatList 
+                    data={this.state.partners}
+                    renderItem={renderPartners}
+                    keyExtractor={item => item.id.toString()}/>
+            </Card>
+            </View>
         </ScrollView>
         )
     }
