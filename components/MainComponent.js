@@ -26,6 +26,7 @@ import {
     fetchPromotions,
     fetchPartners,
 } from "../redux/ActionCreators";
+import Reservation from "./ReservationComponent";
 
 const mapDispatchToProps = {
     fetchCampsites,
@@ -92,7 +93,7 @@ const HomeNavigator = createStackNavigator(
 
 const AboutNavigator = createStackNavigator(
     {
-        Home: { screen: About },
+        About: { screen: About },
     },
     {
         defaultNavigationOptions: ({ navigation }) => ({
@@ -117,7 +118,32 @@ const AboutNavigator = createStackNavigator(
 
 const ContactNavigator = createStackNavigator(
     {
-        Home: { screen: Contact },
+        Contact: { screen: Contact },
+    },
+    {
+        defaultNavigationOptions: ({ navigation }) => ({
+            headerStyle: {
+                backgroundColor: "#5637DD",
+            },
+            headerTintColor: "#fff",
+            headerTitleStyle: {
+                color: "#fff",
+            },
+            headerLeft: (
+                <Icon
+                    name="address-card"
+                    type="font-awesome"
+                    iconStyle={styles.stackIcon}
+                    onPress={() => navigation.toggleDrawer()}
+                />
+            ),
+        }),
+    }
+);
+
+const ReservationNavigator = createStackNavigator(
+    {
+        Reservation: { screen: Reservation },
     },
     {
         defaultNavigationOptions: ({ navigation }) => ({
@@ -183,6 +209,20 @@ const MainNavigator = createDrawerNavigator(
                 drawerIcon: ({ tintColor }) => (
                     <Icon
                         name="list"
+                        type="font-awesome"
+                        size={24}
+                        color={tintColor}
+                    />
+                ),
+            },
+        },
+        Reservation: {
+            screen: ReservationNavigator,
+            navigationOptions: {
+                drawerLabel: "Reserve Campsite",
+                drawerIcon: ({ tintColor }) => (
+                    <Icon
+                        name="tree"
                         type="font-awesome"
                         size={24}
                         color={tintColor}
