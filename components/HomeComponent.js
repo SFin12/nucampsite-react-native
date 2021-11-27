@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, Animated } from "react-native";
+import { View, Text, Animated, setValue } from "react-native";
 import Loading from "./LoadingComponent";
 import { Card } from "react-native-elements";
 import { connect } from "react-redux";
@@ -42,12 +42,14 @@ function RenderItem(props) {
 class Home extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
             scaleValue: new Animated.Value(0),
         };
     }
 
-    animate() {
+    animate(value) {
+        this.state.scaleValue.resetAnimation();
         Animated.timing(this.state.scaleValue, {
             toValue: 1,
             duration: 1500,
@@ -55,7 +57,7 @@ class Home extends Component {
         }).start();
     }
 
-    componentDidMount() {
+    componentDidUpdate() {
         this.animate();
     }
 
